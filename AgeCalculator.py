@@ -27,22 +27,24 @@ class AgeCalculator:
 
     def showAge(self):
         if (self.Today.month,self.Today.day) > (self.Birthday.month,self.Birthday.day):
-            total_age = self.Today.year-self.Birthday.year-1
+            total_age = self.Today.year-self.Birthday.year
             return total_age
         else:
-            total_age = self.Today.year-self.Birthday.year
+            total_age = self.Today.year-self.Birthday.year-1
             return total_age
         
 
     def nextBirthday(self):
+        # Calculate the next birthday date
         next_birthday = self.Birthday.replace(year=self.Today.year)
-        if next_birthday > self.Today:
-            print(f"Your next birthday is in {abs((next_birthday - self.Today).days)} days ")
-            return (next_birthday - self.Today).days
-        else:
-            next_birthday = self.Birthday.replace(year = self.Today.year+1)
-            print(f"Your next birthday is in {abs((next_birthday - self.Today).days)} days ")
-            return (next_birthday - self.Today).days
+        
+        # If the birthday has already occurred this year, move to the next year
+        if next_birthday < self.Today:
+            next_birthday = self.Birthday.replace(year=self.Today.year + 1)
+        
+        days_until_next_birthday = (next_birthday - self.Today).days
+        
+        print(f"Your next birthday is in {days_until_next_birthday+1} days")
 
     def ageConverter(self,choice):
         #1)hours
